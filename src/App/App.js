@@ -1,11 +1,16 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 import Home from '../Components/Pages/Home/Home';
 import SingleBoard from '../Components/Pages/SingleBoard/SingleBoard';
 import NewBoard from '../Components/Pages/NewBoard/NewBoard';
 import Auth from '../Components/Pages/Auth/Auth';
+import firebaseConnection from '../Helpers/data/connection';
 import './App.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+firebaseConnection();
 
 const PublicRoute = ({ component: Component, authed, ...rest }) => {
   const routeChecker = (props) => (authed === false ? <Component {...props} {...rest}/> : <Redirect to={{ pathname: '/', state: { from: props.location } }} />);
@@ -18,7 +23,21 @@ const PrivateRoute = ({ component: Component, authed, ...rest }) => {
 
 class App extends React.Component {
   state = {
-    authed: true,
+    authed: false,
+  }
+
+  componentDidMount() {
+    this.removeEventListener = firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({ authed: true });
+      } else {
+        this.setState({ authed: false });
+      }
+    });
+  }
+
+  componentWillUnmount() {
+    this.removeEventListener();
   }
 
   render() {
