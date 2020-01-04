@@ -40,14 +40,6 @@ class App extends React.Component {
     this.removeEventListener();
   }
 
-  renderView = () => {
-    const { authed } = this.state;
-    if (!authed) {
-      return <Auth />;
-    }
-    return <Home />;
-  }
-
   render() {
     const { authed } = this.state;
     return (
