@@ -1,8 +1,13 @@
 import React from 'react';
 import firebase from 'firebase/app';
+import PropTypes, { bool } from 'prop-types';
 import 'firebase/auth';
 
 class MyNavBar extends React.Component {
+  static propTypes = {
+    authed: PropTypes.bool,
+  }
+
   logMeOut = (e) => {
     e.preventDefault();
     firebase.auth().signOut();
