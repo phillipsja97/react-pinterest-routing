@@ -1,5 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import boardShape from '../../../Helpers/propz/boardShape';
 
 class Boards extends React.Component {
@@ -19,7 +20,7 @@ render() {
         <div class="card-body">
           <h5 class="card-title">{board.name}</h5>
           <p class="card-text">{board.description}</p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
+          <Link className="btn btn-outline-primary" to={`/board/${board.id}`}>View Board</Link>
         </div>
       </div>
     </div>
