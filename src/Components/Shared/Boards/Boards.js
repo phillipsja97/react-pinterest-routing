@@ -1,8 +1,14 @@
 import React from 'react';
+import propTypes from 'prop-types';
+import boardShape from '../../../Helpers/propz/boardShape';
 
 class Boards extends React.Component {
 state = {
   boards: [],
+}
+
+static propTypes = {
+  board: boardShape.boardShape,
 }
 
 render() {
