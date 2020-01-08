@@ -1,18 +1,32 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Boards from '../../Shared/Boards/Boards';
+import boardData from '../../../Helpers/data/boardData';
+import authData from '../../../Helpers/data/authData';
 import './Home.scss';
 
 class Home extends React.Component {
-  render() {
-    const boardId = '12345';
-    return (
+ state = {
+   boards: [],
+ }
+
+ componentDidMount() {
+   boardData.getBoardsByUid(authData.getUid())
+     .then((boards) => {
+       this.setState({ boards });
+     })
+     .catch((error) => console.error(error));
+ }
+
+ render() {
+   return (
       <div className="Home">
         <h1>Home Component</h1>
-        <Link className="btn btn-primary" to="/board/new">Create New Board</Link>
-        <Link className="btn btn-outline-danger" to={`/board/${boardId}`}>Single Board Page</Link>
+        <div className="boards d-flex flex-wrap justify-content-center">
+          { this.state.boards.map((board) => <Boards key={board.id} board={board} />)}
+        </div>
       </div>
-    );
-  }
+   );
+ }
 }
 
 export default Home;

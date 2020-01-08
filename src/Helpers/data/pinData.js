@@ -1,7 +1,7 @@
 import axios from 'axios';
 import apiKeys from '../apiKeys.json';
 
-const baseUrl = apiKeys.firebaseKeys.databaseURL;
+const baseUrl = apiKeys.firebaseConfig.databaseURL;
 
 const getPinsByBoardId = (boardId) => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/pins.json?orderBy="boardId"&equalTo="${boardId}"`)
