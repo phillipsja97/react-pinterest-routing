@@ -9,7 +9,7 @@ class Home extends React.Component {
    boards: [],
  }
 
- componentDidMount() {
+ getBoards = () => {
    boardData.getBoardsByUid(authData.getUid())
      .then((boards) => {
        this.setState({ boards });
@@ -17,12 +17,25 @@ class Home extends React.Component {
      .catch((error) => console.error(error));
  }
 
+ componentDidMount() {
+  this.getBoards();
+ }
+
+ deleteBoard = (boardId) => {
+   boardData.deleteBoard(boardId)
+     .then(() => {
+       this.getBoards();
+     })
+     .catch((error) => console.error(error));
+ }
+
  render() {
+   const { deleteBoard } = this.props;
    return (
       <div className="Home">
         <h1>Home Component</h1>
         <div className="boards d-flex flex-wrap justify-content-center">
-          { this.state.boards.map((board) => <Boards key={board.id} board={board} />)}
+          { this.state.boards.map((board) => <Boards key={board.id} board={board} deleteBoard={this.deleteBoard} />)}
         </div>
       </div>
    );
