@@ -4,7 +4,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import Home from '../Components/Pages/Home/Home';
 import SingleBoard from '../Components/Pages/SingleBoard/SingleBoard';
-import NewBoard from '../Components/Pages/NewBoard/NewBoard';
+import BoardForm from '../Components/Pages/BoardForm/BoardForm';
 import Auth from '../Components/Pages/Auth/Auth';
 import firebaseConnection from '../Helpers/data/connection';
 import MyNavBar from '../Components/Shared/MyNavBar/MyNavBar';
@@ -28,7 +28,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.removeEventListener = firebase.auth().onAuthStateChanged((user) => {
+    this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.setState({ authed: true });
       } else {
@@ -38,7 +38,7 @@ class App extends React.Component {
   }
 
   componentWillUnmount() {
-    this.removeEventListener();
+    this.removeListener();
   }
 
   render() {
@@ -49,7 +49,7 @@ class App extends React.Component {
           <MyNavBar authed={authed} />
           <Switch>
             <PrivateRoute path="/" exact component={Home} authed={authed}/>
-            <PrivateRoute path="/board/new" exact component={NewBoard} authed={authed}/>
+            <PrivateRoute path="/board/new" exact component={BoardForm} authed={authed}/>
             <PublicRoute path="/auth" exact component={Auth} authed={authed}/>
             <PrivateRoute path="/board/:boardId" exact component={SingleBoard} authed={authed} />
           </Switch>

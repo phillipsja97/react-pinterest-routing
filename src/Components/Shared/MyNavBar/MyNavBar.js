@@ -33,7 +33,7 @@ class MyNavBar extends React.Component {
         );
       }
       return (<ul className="navbar-nav ml-auto"></ul>);
-    }
+    };
     return (
       <div className="MyNavbar">
       <nav className="navbar navbar-expand-lg navbar-light bg-light">

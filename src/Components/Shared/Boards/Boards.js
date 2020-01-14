@@ -24,11 +24,11 @@ render() {
   const { board } = this.props;
   return (
     <div className="Board col-4">
-      <div class="card">
+      <div className="card">
           <button className="btn btn-danger deleteBoardButton col-1" onClick={this.deleteBoardEvent}>X</button>
-        <div class="card-body">
-          <h5 class="card-title">{board.name}</h5>
-          <p class="card-text">{board.description}</p>
+        <div className="card-body">
+          <h5 className="card-title">{board.name}</h5>
+          <p className="card-text">{board.description}</p>
           <Link className="btn btn-outline-primary" to={`/board/${board.id}`}>View Board</Link>
         </div>
       </div>
