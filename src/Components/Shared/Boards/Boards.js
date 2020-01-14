@@ -30,6 +30,7 @@ render() {
           <h5 className="card-title">{board.name}</h5>
           <p className="card-text">{board.description}</p>
           <Link className="btn btn-outline-primary" to={`/board/${board.id}`}>View Board</Link>
+          <Link className="btn btn-outline-warning" to={`/board/${board.id}/edit`}>Edit Board</Link>
         </div>
       </div>
     </div>
