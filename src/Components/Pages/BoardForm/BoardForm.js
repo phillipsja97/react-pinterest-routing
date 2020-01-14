@@ -42,7 +42,21 @@ class BoardForm extends React.Component {
       .catch((errorFromSaveBoard) => console.error(errorFromSaveBoard));
   }
 
+  editBoardEvent = (e) => {
+    e.preventDefault();
+    const { boardId } = this.props.match.params;
+    const newBoard = {
+      name: this.state.boardName,
+      description: this.state.boardDescription,
+      uid: authData.getUid(),
+    };
+    boardData.updateBoard(boardId, newBoard)
+      .then(() => this.props.history.push('/'))
+      .catch((errorFromEditBoard) => console.error(errorFromEditBoard));
+  }
+
   render() {
+    const { boardId } = this.props.match.params;
     const { boardName, boardDescription } = this.state;
     return (
       <div className="BoardForm">
@@ -69,7 +83,11 @@ class BoardForm extends React.Component {
               onChange={this.descriptionChange}
               />
           </div>
-          <button className="btn btn-outline-primary" onClick={this.saveBoardEvent}>Save Board</button>
+          { boardId
+            ? <button className="btn btn-outline-primary" onClick={this.editBoardEvent}>Edit Board</button>
+            : <button className="btn btn-outline-primary" onClick={this.saveBoardEvent}>Save Board</button>
+          }
+
         </form>
       </div>
     );
